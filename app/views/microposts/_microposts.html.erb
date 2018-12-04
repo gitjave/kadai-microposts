@@ -12,14 +12,18 @@
         <p><%= micropost.content %></p>
       </div>
       <div>
-        <% if current_user == micropost.user #micropostの出所はmicroposts,index.html.erbの@microposts, toppages_controller.rbの@microposts  %>
-        <% #この変数はcurrent_userから引っ張ってきてる。つまり　＃＃このifは常にtrueで不要なのではないか？＃＃ %>
-        
-        <% # 未だ存在価値がわからず。↑%>
-        
-        
-        
-        
+        <% if current_user.liking?(micropost) %>
+    <%= form_for(current_user.like_relationships.find_by(micropost_id: micropost.id), html:{ method: :delete}) do |f| %>
+    <%= hidden_field_tag :micropost_id, micropost.id %>
+    <%= f.submit "Unlike", class: "btn btn-danger  btn-xs" %>
+    <% end %>
+  <% else %>
+    <%= form_for(current_user.like_relationships.build) do |f| %>
+    <%= hidden_field_tag :micropost_id, micropost.id %>
+    <%= f.submit "Like", class: "btn btn-primary  btn-xs" %>
+    <% end %>
+    <% end %>
+        <% if current_user == micropost.user %>
         <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-danger btn-xs" %>
         <% end %>
       </div>
