@@ -12,7 +12,7 @@
         <p><%= micropost.content %></p>
       </div>
       <div>
-        <% if current_user = micropost.user #micropostの出所はmicroposts,index.html.erbの@microposts, toppages_controller.rbの@microposts  %>
+        <% if current_user == micropost.user #micropostの出所はmicroposts,index.html.erbの@microposts, toppages_controller.rbの@microposts  %>
         <% #この変数はcurrent_userから引っ張ってきてる。つまり　＃＃このifは常にtrueで不要なのではないか？＃＃ %>
         
         <% # 未だ存在価値がわからず。↑%>
